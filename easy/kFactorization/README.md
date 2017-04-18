@@ -1,1 +1,1 @@
-[kFactorization](KFactorization_1.jpg)
+![kFactorization](KFactorization_1.jpg)

@@ -1,1 +1,1 @@
-[theGreatMixing](TheGreatMixing_1.jpg)
+![theGreatMixing](TheGreatMixing_1.jpg)

@@ -1,1 +1,1 @@
-[newYearAndHurry](NewYearAndHurry_1.jpg)
+![newYearAndHurry](NewYearAndHurry_1.jpg)

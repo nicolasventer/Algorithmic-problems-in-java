@@ -1,1 +1,1 @@
-[oddSum](OddSum_1.jpg)
+![oddSum](OddSum_1.jpg)
