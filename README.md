@@ -1,6 +1,4 @@
-# Codeforces
-
-[Codeforces](http://codeforces.com/) is a site where there are algorithm problems.  
+[Codeforces](http://codeforces.com/) is a site where there are algorithmic problems.  
 They can be solved in competition or whenever.
 
 I solve all theses problems in Java, but the language is not imposed.
