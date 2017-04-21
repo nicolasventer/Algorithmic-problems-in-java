@@ -1,7 +1,8 @@
+package normal.mikeAndGcdProblem;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class _template {
+public class MikeAndGcdProblem {
 
 	public static FastScanner in = new FastScanner(System.in);
 
@@ -29,13 +30,38 @@ public class _template {
 		}
 	}
 
+	public static int gcd(int a, int b) {
+		return b == 0 ? a : a % b == 0 ? b : gcd(b, a % b);
+	}
+
 	public static void main(String[] args) {
 		try {
 			int n = in.nextInt();
-
-			System.out.println(n);
+			int[] l = new int[n + 1];
+			int minGcd = 0;
+			for (int i = 0; i < n; i++) {
+				l[i] = in.nextInt();
+				minGcd = gcd(minGcd, l[i]);
+			}
+			int nbMove = 0;
+			if (minGcd == 1) {
+				for (int i = 0; i < n; i++)
+					if (l[i] % 2 == 1)
+						if (l[i + 1] % 2 == 1) {
+							nbMove++;
+							l[i] = 0;
+							l[i + 1] = 0;
+						} else {
+							nbMove += 2;
+							l[i] = 0;
+						}
+			}
+			System.out.println("YES");
+			System.out.println(nbMove);
 			in.close();
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 		}
 	}
