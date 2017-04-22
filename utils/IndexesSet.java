@@ -99,15 +99,16 @@ public class IndexesSet implements Set<Integer> {
 			public Integer next() throws NoSuchElementException {
 				if (!hasNext())
 					throw new NoSuchElementException();
+				int result = allIndexes.get(index);
 				index++;
-				while (allIndexes.get(index) == -1)
+				while (index < allIndexes.size() && allIndexes.get(index) == -1)
 					index++;
-				return allIndexes.get(index);
+				return result;
 			}
 
 			@Override
 			public boolean hasNext() {
-				return index < size;
+				return index < allIndexes.size();
 			}
 		};
 	}
