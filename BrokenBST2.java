@@ -1,11 +1,11 @@
-package normal.brokenBST;
+
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class BrokenBST {
+public class BrokenBST2 {
 
 	public static FastScanner in = new FastScanner(System.in);
 

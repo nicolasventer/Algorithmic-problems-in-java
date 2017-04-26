@@ -1,6 +1,6 @@
 package normal.igorToWork;
+
 import java.io.*;
-import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class IgorToWork {
@@ -31,86 +31,74 @@ public class IgorToWork {
 		}
 	}
 
-	public static class MyPoint {
-		public int x;
-		public int y;
-		public int dirX;
-		public int dirY;
-		public int nbTurns = 0;
-
-		public MyPoint(int x, int y, int dirX, int dirY) {
-			this.x = x;
-			this.y = y;
-			this.dirX = dirX;
-			this.dirY = dirY;
-		}
-
+	public static void charNPvalues() throws IOException {
+		charNP = new char[n][];
+		for (int i = 0; i < n; i++)
+			charNP[i] = in.next().toCharArray();
 	}
-
+	
+	public static int n, m;
+	public static char[][] charNP;
+	
+	public static int xS, yS, xT, yT;
+	
+	public static final int[] dirX = { -1, 0, 1, 0 };
+	public static final int[] dirY = { 0, -1, 0, 1 };
+	
+	public static boolean[][][][] visitedDir;
+	
 	public static void main(String[] args) {
 		try {
-			int n = in.nextInt();
-			int m = in.nextInt();
-			String[] tab = new String[n];
-			int xS = 0, yS = 0;
-			int xT = 0, yT = 0;
-			for (int i = 0; i < n; i++) {
-				tab[i] = in.next();
-				if (tab[i].contains("S")) {
-					xS = i;
-					yS = tab[i].indexOf("S");
+			n = in.nextInt();
+			m = in.nextInt();
+			charNPvalues();
+			
+			// find start and end positions
+			for (int i = 0; i < n; i++)
+				for (int j = 0; j < m; j++) {
+					if (charNP[i][j] == 'S') {
+						xS = i;
+						yS = j;
+						charNP[i][j] = '.';
+					}
+					if (charNP[i][j] == 'T') {
+						xT = i;
+						yT = j;
+						charNP[i][j] = '.';
+					}
 				}
-				if (tab[i].contains("T")) {
-					xT = i;
-					yT = tab[i].indexOf("T");
+			
+			visitedDir = new boolean[4][3][n][m];
+			
+			for (int d=0; d<4; d++) 
+				if (dfs(xS, yS, 0, d)) {
+					System.out.println("YES");
+					return;
 				}
-			}
-			LinkedList<MyPoint> l = new LinkedList<MyPoint>();
-			boolean[][] visited = new boolean[n][m];
-			for (MyPoint p : getPushList(xS, yS, xT, yT))
-				if (p.nbTurns <= 2 && p.x >= 0 && p.x < tab.length && p.y >= 0 && p.y < tab[0].length()
-						&& !visited[p.x][p.y])
-					l.push(p);
-			if (browse(l, visited, tab, xT, yT))
-				System.out.println("YES");
-			else
-				System.out.println("NO");
-			in.close();
-		} catch (Exception e) {
+			System.out.println("NO");
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
-
-	private static boolean browse(LinkedList<MyPoint> l, boolean[][] visited, String[] tab, int xT, int yT) {
-		while (!l.isEmpty()) {
-			MyPoint p0 = l.pop();
-			visited[p0.x][p0.y] = true;
-			switch (tab[p0.x].charAt(p0.y)) {
-			case 'T':
+	
+	public static boolean dfs(int x, int y, int turns, int dir) {
+		if (x < 0 || x >= n || y<0 || y>=m || charNP[x][y] == '*' || turns > 2)
+			return false;
+		
+		if (x == xT && y == yT)
+			return true;
+	
+		if (visitedDir[dir][turns][x][y])
+			return false;
+		
+		for (int d=0; d<4; d++)
+			if ( dfs(x + dirX[d], y + dirY[d], turns + (dir == d ? 0 : 1), d ))
 				return true;
-			case '*':
-				return browse(l, visited, tab, xT, yT);
-			default:
-				MyPoint[] pl = getPushList(p0.x + p0.dirX, p0.y + p0.dirY, xT, yT);
-				for (MyPoint p1 : pl) {
-					p1.nbTurns = p0.nbTurns + (p0.dirX != p1.dirX || p0.dirY != p1.dirY ? 1 : 0);
-					if (p1.nbTurns <= 2 && p1.x >= 0 && p1.x < tab.length && p1.y >= 0 && p1.y < tab[0].length()
-							&& !visited[p1.x][p1.y])
-						l.push(p1);
-				}
-				break;
-			}
-		}
+		
+		visitedDir[dir][turns][x][y] = true;
+		
 		return false;
-	}
-
-	private static MyPoint[] getPushList(int xS, int yS, int xT, int yT) {
-		if (Math.abs(xS - xT) > Math.abs(yS - yT))
-			return new MyPoint[] { new MyPoint(xS, yS, xS > xT ? -1 : 1, 0), new MyPoint(xS, yS, 0, yS > yT ? -1 : 1),
-					new MyPoint(xS, yS, 0, yS > yT ? 1 : -1), new MyPoint(xS, yS, xS > xT ? 1 : -1, 0) };
-		else
-			return new MyPoint[] { new MyPoint(xS, yS, 0, yS > yT ? -1 : 1), new MyPoint(xS, yS, xS > xT ? -1 : 1, 0),
-					new MyPoint(xS, yS, xS > xT ? 1 : -1, 0), new MyPoint(xS, yS, 0, yS > yT ? 1 : -1) };
 	}
 
 }
