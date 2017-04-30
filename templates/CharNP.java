@@ -1,24 +1,12 @@
-import java.io.*;
+package templates;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class _template {
-
-	// variables
-
-	// functions
-
-	public static void main(String[] args) {
-		try {
-			// readValues
-			// useFunctions
-			// printResult
-			in.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// utils
+public class CharNP {
 
 	public static FastScanner in = new FastScanner(System.in);
 
@@ -50,4 +38,30 @@ public class _template {
 		}
 
 	}
+
+	public static interface OnRead {
+		public boolean use(int i);
+	}
+
+	public static OnRead doNothing = new OnRead() {
+		@Override
+		public boolean use(int i) {
+			return false;
+		}
+	};
+
+	public static void charNPvalues(int n) throws IOException {
+		charNPvalues(n, doNothing);
+	}
+
+	public static void charNPvalues(int n, OnRead r) throws IOException {
+		charNP = new char[n][];
+		boolean stopUse = false;
+		for (int i = 0; i < n; i++) {
+			charNP[i] = in.next().toCharArray();
+			stopUse = stopUse || r.use(i);
+		}
+	}
+
+	public static char[][] charNP;
 }

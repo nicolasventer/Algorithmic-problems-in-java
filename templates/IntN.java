@@ -1,25 +1,13 @@
-import java.io.*;
+package templates;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class _template {
-
-	// variables
-
-	// functions
-
-	public static void main(String[] args) {
-		try {
-			// readValues
-			// useFunctions
-			// printResult
-			in.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// utils
-
+public class IntN {
+	
 	public static FastScanner in = new FastScanner(System.in);
 
 	public static class FastScanner {
@@ -50,4 +38,31 @@ public class _template {
 		}
 
 	}
+	
+	public static interface OnRead {
+		public boolean use(int i);
+	}
+
+	public static OnRead doNothing = new OnRead() {
+		@Override
+		public boolean use(int i) {
+			return false;
+		}
+	};
+	
+	public static void intNvalues(int n) throws IOException {
+		intNvalues(n, doNothing);
+	}
+
+	public static void intNvalues(int n, OnRead r) throws IOException {
+		intN = new int[n];
+		boolean stopUse = false;
+		for (int i = 0; i < n; i++) {
+			intN[i] = in.nextInt();
+			stopUse = stopUse || r.use(i);
+		}
+	}
+	
+	public static int[] intN;
+	
 }

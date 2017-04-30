@@ -1,24 +1,12 @@
-import java.io.*;
+package templates;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class _template {
-
-	// variables
-
-	// functions
-
-	public static void main(String[] args) {
-		try {
-			// readValues
-			// useFunctions
-			// printResult
-			in.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// utils
+public class CharN {
 
 	public static FastScanner in = new FastScanner(System.in);
 
@@ -48,6 +36,13 @@ public class _template {
 		public void close() throws IOException {
 			reader.close();
 		}
+		
+		public static void charNvalues() throws IOException {
+			charN = in.next().toCharArray();
+		}
+		
+		public static char[] charN;
 
 	}
+	
 }

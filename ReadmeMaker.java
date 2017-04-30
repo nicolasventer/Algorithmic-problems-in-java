@@ -5,7 +5,7 @@ import java.io.IOException;
 public class ReadmeMaker {
 
 	public static boolean overwrite = false;
-	
+
 	public static boolean containsExt(File[] l, String extention) {
 		for (File f : l)
 			if (f.getName().endsWith("." + extention))
@@ -23,22 +23,22 @@ public class ReadmeMaker {
 					fw = new FileWriter(readmeFile);
 					for (File f : l)
 						if (f.getName().endsWith(".jpg"))
-							fw.write("![" + current.getName() + "](" + f.getName() + ")\n");
+							fw.write(("![" + current.getName() + "](" + f.getName() + ")\n").replaceAll(" ", "%20"));
 					fw.close();
-					System.out.println(readmeFile+" created");
+					System.out.println(readmeFile + " created");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-		} else
-			for (File f : l)
-				if (f.isDirectory())
-					browse(f);
+		}
+		for (File f : l)
+			if (f.isDirectory())
+				browse(f);
 	}
 
-	public static void main(String[] args) {
-		overwrite = args.length>0 && args[0].equals("-f");
-		browse(new File("."));
+	public static void main(String[] args) throws IOException {
+		overwrite = args.length > 0 && args[0].equals("-f");
+		browse(new File(".").getCanonicalFile());
 	}
 
 }
