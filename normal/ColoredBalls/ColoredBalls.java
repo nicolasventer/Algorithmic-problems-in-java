@@ -1,4 +1,5 @@
-package normal.ColoredBalls;
+package normal.coloredBalls;
+
 import java.io.*;
 import java.util.StringTokenizer;
 
@@ -31,9 +32,9 @@ public class ColoredBalls {
 
 	public static boolean changeMin() {
 		for (long l : longN) {
-			long q = l/min;
-			if (l-q*min > q) {
-				min = l/(q+1);
+			long q = l / min;
+			if (l - q * min > q) {
+				min = l / (q + 1);
 				return true;
 			}
 		}

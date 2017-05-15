@@ -1,18 +1,26 @@
+package easy.cuttingCarot;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class _template {
+public class CuttingCarrot {
 
 	// variables
+	public static int n, h;
+	public static double aeraByRabbit, firstHight;
 
 	// functions
 
 	public static void main(String[] args) {
 		try {
 			// readValues
+			n = in.nextInt();
+			h = in.nextInt();
 			// useFunctions
+			aeraByRabbit = 0.5 * h / n;
+			firstHight = Math.sqrt(2 * h * aeraByRabbit);
 			// printResult
-			System.out.println(in.s);
+			for (int i = 1; i < n; i++)
+				System.out.print(firstHight * Math.sqrt(i) + " ");
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,12 +34,10 @@ public class _template {
 	public static class FastScanner {
 		public BufferedReader reader;
 		public StringTokenizer tokenizer;
-		public StringBuilder s;
 
 		public FastScanner(InputStream i) {
 			reader = new BufferedReader(new InputStreamReader(i));
 			tokenizer = new StringTokenizer("");
-			s = new StringBuilder();
 		}
 
 		public String next() throws IOException {
